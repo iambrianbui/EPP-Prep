@@ -1,0 +1,73 @@
+/*
+Created by:  Brian Bui
+Created on:  17 January 2017
+
+This program will get gymnastic scores and find the average of the n-2, dropping the highest and lowest score.
+
+*/
+
+#include<iostream>
+using namespace std;
+
+void insert(int*, int);//  insert
+double average(int*, int);//  average
+
+
+
+int main(){
+	int* a;
+	int x = 0;
+	int choice = 0;
+	double largest = 0;
+	int lcontest = 0;
+	double avg = 0;
+
+
+	cout << "How many judges?  ";
+	cin >> x;
+	a = new int[x];
+
+	while (choice >= 0){
+
+		cout << "Insert contestant number:  ";
+		cin >> choice;
+		if (choice < 0) break;
+		insert(a, x);
+		cout << "Contestant " << choice << ":  ";
+		avg = average(a, x);
+		cout << avg << endl << endl;
+		if (avg > largest){
+			largest = avg;
+			lcontest = choice;
+		}
+	}
+	cout << "The highest score is Contestent " << lcontest << endl;
+}
+
+void insert(int arr[], int x){
+	cout << "Insert scores:  ";
+	for (int i = 0; i < x; i++){
+		cin >> arr[i];
+	}
+}
+
+double average(int arr[], int x){
+	double avg = 0;
+	int min = arr[0];
+	int max = 0;
+	if (x <= 2) return 0;
+	for (int i = 0; i < x; i++){
+		if (arr[i] < min){
+			min = arr[i];
+		}
+		if (arr[i] > max){
+			max = arr[i];
+		}
+	}
+
+	for (int i = 0; i < x; i++){
+		avg = avg+arr[i];
+	}
+	avg = avg - min - max;
+	return (avg / (x - 2));
+}
