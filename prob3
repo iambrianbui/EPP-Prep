@@ -1,0 +1,72 @@
+/*
+Brian Bui 890670979
+*/
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+struct Node {
+	int data;
+	Node* next;
+};
+
+void insert(Node*&, int);
+void print(Node*);
+int count(Node*);
+
+int main() {
+	Node *edges[5];  //edge[i] is the head node
+	for (int i = 0; i < 5; i++) {
+		edges[i] = NULL;
+	}
+
+	//  insertion
+	insert(edges[0], 2);
+	insert(edges[0], 7);
+	insert(edges[1], 3);
+	insert(edges[2], 0);
+	insert(edges[2], 5);
+	insert(edges[4], 1);
+
+	for (int i = 0; i < 5; i++) {
+		cout << count(edges[i]);
+		cout << endl;
+	}
+
+
+}
+
+void insert(Node*& list, int x) {
+	Node* r;
+	Node* p = list; //  front;
+	r = new Node;  //  create
+	r->data = x;  //  init
+	r->next = NULL;  //  init
+	if (list == NULL) {  //  if it's the first
+		list = r;
+	}
+
+	else {  //  if it is not the first
+		while (p->next != NULL) {
+			p = p->next;
+		}
+		p->next = r;
+	}
+}
+
+//  print the linked lists
+void print(Node* list) {
+	Node* p = list;
+	while (p != NULL) {
+		cout << p->data << "\t";
+		p = p->next;
+	}
+	cout << endl;
+}
+
+//  RECURSIVE FUNCTION 
+int count(Node* list) {
+	if (list == NULL) return 0;
+	else return 1 + count(list->next);
+}
