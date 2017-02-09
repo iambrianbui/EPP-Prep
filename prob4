@@ -1,0 +1,99 @@
+/*
+Brian Bui 890670979
+
+This program will create an interactive program for an urgent care clinic.
+A patient's record contains the following:
+	ID Firstname Lastname Age Email
+		(i.e.)	0 Brian Bui 19 iambrianbui@csu.fullerton.edu
+				int	string	string	int	string
+There will be two queues available:
+	(1)  Urgent Care
+		•	These patients have the highest priority.
+	(2)  Regular Care
+		•	These patients have secondary priority.
+It is to be noted that text file and the queues have no relation to eachother.
+
+There are 6 choices in the menu:
+	(1)  New Patient
+		•	This will create a new patient, prompting the user for:
+				ID Firstname Lastname Age Email
+			then, it will ask the user on which waitlist they are to be on.
+
+	(2)  Returning Patient
+		•	This will find the given ID and retrieve the information at hand.
+			If the ID is not found a message will inform the user.  If the ID
+			is found, the user will be asked on which waitlist they are to be on.
+
+	(3)  Doctor Consultation
+		•	This will pop the queue on the urgent waitlist or the regular waitlist 
+			respectively.
+
+	(4)  Find Patient
+		•	This will find information about a patient given the ID.  If they
+			cannot be found, a message will inform the user.
+
+	(5)  Delete Patient
+		•	This will delete patient information from the main system given the ID.
+			If they cannot be found, a message will inform the user.  
+
+	(6)  Quit
+		•	This will exit the program, GIVEN THAT THERE ARE NO MORE MEMBERS IN THE 
+			URGENT LIST!!!!!!
+			
+			If there are still members in the urgent waitlist, the program will go
+			back to the menu.  Otherwise, it will print the remaining regular wait
+			list information, overwriting all patient information to "Patient.txt".
+
+There will be 3 headers and 1 main code.
+	(1)  Queue for the lists  (header)
+	(2)  Program/Classes  (header)
+	(3)  Main/Menu  (main)
+
+*/
+
+#include<iostream>
+#include<string>
+#include"PROGRAM.h"
+#include"QUEUE.h"
+
+using namespace std;
+
+int main() {
+	MAINPRO m;
+	char choice;
+	bool done = false;
+
+
+	m.import("Patient.txt");
+	while (done != true) {
+		cout << "Welcome to the Urgent Care Medical Clinic!  How many we help you today?" << endl;
+		cout << "N  -  New Patient" << endl
+			<< "R  -  Returning Patient" << endl
+			<< "C  -  Doctor Consultation" << endl
+			<< "F  -  Find Information" << endl
+			<< "D  -  Delete Patient Information" << endl
+			<< "Q  -  Quit" << endl;
+		cin >> choice;
+		if (choice == 'N' || choice == 'n') {
+			m.newPatient();
+		}
+		if (choice == 'R' || choice == 'r') {
+			m.retrieve();
+		}
+		if (choice == 'C' || choice == 'c') {
+			m.consult();
+		}
+		if (choice == 'F' || choice == 'f') {
+			m.find();
+		}
+		if (choice == 'D' || choice == 'd') {
+			m.del();
+		}
+		if (choice == 'Q' || choice == 'q') {
+			done = true;
+
+		}
+	}
+
+ 	m.write("Patient.txt");  //  write to file
+}
