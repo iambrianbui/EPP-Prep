@@ -1,0 +1,70 @@
+/*
+Brian Bui 890670979
+*/
+
+#include<iostream>
+using namespace std;
+
+void merge(int*, int*, int*, int, int);
+
+int main() {
+	int* arr1;
+	int* arr2;
+	int* arr3;
+
+	arr1 = new int[7];
+	arr2 = new int[4];
+	arr3 = new int[11];
+
+	cout << "Please enter 7 integers for the first array.  ";
+	for (int i = 0; i < 7; i++) {
+		cin >> arr1[i];
+	}
+	cout << "Please enter 4 integers for the second array.  ";
+	for (int i = 0; i < 4; i++) {
+		cin >> arr2[i];
+	}
+	merge(arr1, arr2, arr3, 7, 5);
+
+
+
+}
+
+void merge(int arr1[], int arr2[], int arr3[], int x, int y) {
+	int index = 0, tempX = x - 1, tempY = y - 1;
+
+	//  init input
+	for (int i = 0; i < (x + y); i++) {
+		if (tempX != 0) {
+			arr3[index] = arr1[i];
+			index++;
+			tempX--;
+			if (tempX == 0) break;  //  list is empty
+		}
+		if (tempY != 0) {
+			arr3[index] = arr2[i];
+			index++;
+			tempY--;
+			if (tempY == 0) break;  //  list is empty
+		}
+	}
+
+	//  check for which one still has values
+	if (tempX == 0) {  //  if the first list expires first
+		for (int i = (y - tempY - 1); i < y; i++) {
+			arr3[index] = arr2[i];
+			index++;
+		}
+	}
+	if (tempY == 0) {  //  if the second list expires first
+		for (int i = (x - tempX - 1); i < x; i++) {
+			arr3[index] = arr1[i];
+			index++;
+		}
+	}
+
+	for (int i = 0; i < index; i++) {
+		cout << arr3[i] << "\t";
+	}
+	cout << endl;
+}
